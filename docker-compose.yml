@@ -1,0 +1,47 @@
+services:
+  # Wallos: Open-Source Personal Subscription Tracker
+  # https://github.com/ellite/Wallos
+  wallos:
+    container_name: wallos
+    image: bellamy/wallos:latest
+    ports:
+      - "8282:80/tcp"
+    environment:
+      TZ: "${GENERIC_TIMEZONE}"
+    # Volumes store your data between container upgrades
+    volumes:
+      - "./mnt/wallos/db:/var/www/html/db"
+      - "./mnt/wallos/logos:/var/www/html/images/uploads/logos"
+    restart: unless-stopped
+
+  # Open WebUI: User-friendly AI Interface (Supports Ollama, OpenAI API, ...)
+  # https://github.com/open-webui/open-webui
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - "8801:8080"
+    volumes:
+      - ./mnt/open-webui/data:/app/backend/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  # n8n: Open Source Workflow Automation Tool
+  # https://n8n.io/
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    ports:
+      - 5678:5678
+    environment:
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://${N8N_HOST}/
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+    volumes:
+      - ./mnt/n8n/data:/home/node/.n8n
+      - ./mnt/n8n/files:/files
+    restart: unless-stopped
