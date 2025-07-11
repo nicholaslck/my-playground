@@ -1,0 +1,7 @@
+FROM ghcr.io/asyncfuncai/deepwiki-open:latest as BASE
+
+# Using ollama as the embedder
+RUN cp /app/api/config/embedder.ollama.json.bak /app/api/config/embedder.json
+
+# Command to run the application
+CMD ["/app/start.sh"]

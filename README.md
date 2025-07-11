@@ -67,6 +67,9 @@ This project includes the following services:
 | [Wallos](https://github.com/ellite/Wallos) | An open-source personal subscription tracker. | `http://localhost:8282` |
 | [Open WebUI](https://github.com/open-webui/open-webui) | A user-friendly web UI for various AI models. | `http://localhost:8801` |
 | [n8n](https://n8n.io/) | A powerful workflow automation tool. | `http://localhost:5678` |
+| [deepwiki-open](https://github.com/AsyncFuncAI/deepwiki-open) | AI-Powered Wiki Generator for GitHub/Gitlab/Bitbucket Repositories. | `http://localhost:8001` and `http://localhost:8300` |
+| [openlist](https://github.com/OpenListTeam/OpenList) | A new AList Fork to Anti Trust Crisis. | `http://localhost:5244` and `http://localhost:5245` |
+| adventurelog | A personal adventure logging application. | `http://localhost:8015` |
 
 ## Directory Structure
 

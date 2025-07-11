@@ -1,0 +1,30 @@
+services:
+  web:
+    image: ghcr.io/seanmorley15/adventurelog-frontend:latest
+    container_name: adventurelog-frontend
+    restart: unless-stopped
+    env_file: .env.adventurelog
+    ports:
+      - "8015:3000"
+    depends_on:
+      - server
+
+  server:
+    image: ghcr.io/seanmorley15/adventurelog-backend:latest
+    container_name: adventurelog-backend
+    restart: unless-stopped
+    env_file: .env.adventurelog
+    ports:
+      - "8016:80"
+    depends_on:
+      - db
+    volumes:
+      - ./mnt/adventurelog/media:/code/media/
+
+  db:
+    image: tobi312/rpi-postgresql-postgis:16-3.5-alpine-arm64
+    container_name: adventurelog-db
+    restart: unless-stopped
+    env_file: .env.adventurelog
+    volumes:
+      - ./mnt/adventurelog/postgresql/data:/var/lib/postgresql/data
